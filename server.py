@@ -56,7 +56,7 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         s.do_HEAD()
 
 if __name__ == "__main__":
-    HOST, PORT = 'localhost', 8000
+    HOST, PORT = 'localhost', 80
     server_class = BaseHTTPServer.HTTPServer
     httpd = server_class((HOST, PORT), RedirectHandler)
     try:
