@@ -1,4 +1,5 @@
 import SocketServer
+import socket
 import BaseHTTPServer
 import sys
 import cgi
@@ -56,7 +57,8 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         s.do_HEAD()
 
 if __name__ == "__main__":
-    HOST, PORT = 'http-python-test.herokuapp.com', 80
+    PORT = 80
+    HOST = socket.gethostbyname(socket.gethostname())
     server_class = BaseHTTPServer.HTTPServer
     httpd = server_class((HOST, PORT), RedirectHandler)
     try:
