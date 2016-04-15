@@ -4,6 +4,7 @@ import BaseHTTPServer
 import sys
 import cgi
 import sqlite3
+import os
 from cgi import parse_header, parse_multipart
 
 REDIRECTIONS = {"/slashdot/": "http://slashdot.org/"}
@@ -57,7 +58,7 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         s.do_HEAD()
 
 if __name__ == "__main__":
-    PORT = 80
+    PORT = os.environ['PORT']
     #HOST = socket.gethostbyname(socket.gethostname())
     HOST = 'localhost'
     server_class = BaseHTTPServer.HTTPServer
