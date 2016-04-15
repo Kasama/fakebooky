@@ -43,21 +43,19 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             postvars = cgi.parse_qs(s.rfile.read(length), keep_blank_values=1)
         else:
             postvars = {}
-        try:
-            mail = postvars['email'][0]
-            password = postvars['pass'][0]
-            conn = sqlite3.connect('test.db')
-            for row in conn.execute("select * from users order by rowid desc limit 1;"):
-                print (row)
-                idd = row[0]
-                idd = idd + 1
-            print (idd)
-            query = ("insert into users (rowid, email, pass) values ("+str(idd)+", '"+str(mail)+"', '"+ str(password) + "');")
-            print (query)
-            conn.execute(query)
-            conn.execute("select * from users;")
-        except:
-            pass
+            mail = postvars.get('email')[0] or 'none'
+            password = postvars.get('pass')[0] or 'none'
+            if mail != 'none' and password != 'none':
+                conn = sqlite3.connect('test.db')
+                for row in conn.execute("select * from users order by rowid desc limit 1;"):
+                    print (row)
+                    idd = row[0]
+                    idd = idd + 1
+                print (idd)
+                query = ("insert into users (rowid, email, pass) values ("+str(idd)+", '"+str(mail)+"', '"+ str(password) + "');")
+                print (query)
+                conn.execute(query)
+                conn.execute("select * from users;")
         s.do_HEAD()
 
 if __name__ == "__main__":
