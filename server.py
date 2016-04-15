@@ -56,7 +56,7 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         s.do_HEAD()
 
 if __name__ == "__main__":
-    HOST, PORT = 'localhost', 80
+    HOST, PORT = 'http-python-test.herokuapp.com', 80
     server_class = BaseHTTPServer.HTTPServer
     httpd = server_class((HOST, PORT), RedirectHandler)
     try:
