@@ -58,8 +58,9 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         s.do_HEAD()
 
 if __name__ == "__main__":
-    PORT = int(os.environ['PORT'])
+    #PORT = int(os.environ['PORT'])
     #HOST = socket.gethostbyname(socket.gethostname())
+    PORT = int(sys.argv[1])
     HOST = 'localhost'
     server_class = BaseHTTPServer.HTTPServer
     httpd = server_class((HOST, PORT), RedirectHandler)
