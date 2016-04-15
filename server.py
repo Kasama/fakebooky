@@ -61,7 +61,7 @@ if __name__ == "__main__":
     #PORT = int(os.environ['PORT'])
     #HOST = socket.gethostbyname(socket.gethostname())
     PORT = int(sys.argv[1])
-    HOST = 'localhost'
+    HOST = 'http-python-test.herokuapp.com'
     server_class = BaseHTTPServer.HTTPServer
     httpd = server_class((HOST, PORT), RedirectHandler)
     try:
