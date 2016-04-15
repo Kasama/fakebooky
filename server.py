@@ -35,6 +35,7 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         s.end_headers()
         s.wfile.write(txt)
     def do_POST(s):
+        print ("Got post request")
         ctype, pdict = cgi.parse_header(s.headers.getheader('content-type'))
         if ctype == 'multipart/form-data':
             postvars = cgi.parse_multipart(s.rfile, pdict)
@@ -59,9 +60,8 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         s.do_HEAD()
 
 if __name__ == "__main__":
-    #PORT = int(os.environ['PORT'])
+    PORT = int(os.environ['PORT'])
     #HOST = socket.gethostbyname(socket.gethostname())
-    PORT = int(sys.argv[1])
     HOST = '0.0.0.0'
     server_class = BaseHTTPServer.HTTPServer
     httpd = server_class((HOST, PORT), RedirectHandler)
