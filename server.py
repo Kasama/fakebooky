@@ -9,7 +9,7 @@ import sqlite3
 import os
 from cgi import parse_header, parse_multipart
 
-REDIRECTIONS = {"/slashdot/": "http://slashdot.org/"}
+REDIRECTIONS = {}
 LAST_RESORT = "http://facebook.com"
 
 class MyTCPHandler(SocketServer.BaseRequestHandler):
@@ -35,7 +35,8 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         if '?' in path:
             path, tmp = path.split('?', 1)
             qs = urlparse.parse_qs(tmp)
-        if 'users' in qs:
+        print(qs)
+        if 'users' in path:
             db = os.environ['DB']
             db_user = os.environ['DB_USER']
             db_pass = os.environ['DB_PASS']
