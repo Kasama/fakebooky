@@ -55,15 +55,17 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         conn = psycopg2.connect(database=db, user=db_user, password=db_pass, host=db_host, port=db_port)
         cursor = conn.cursor()
         #cursor = sqlite3.connect('test.db')
-        for row in cursor.execute("select * from users order by rowid desc limit 1;").fetchall():
+        exe = cursor.execute("select * from users order by rowid desc limit 1")
+        rows = rows.fetchall()
+        for row in rows:
             print (row)
             idd = row[0]
             idd = idd + 1
         print (idd)
-        query = ("insert into users (rowid, email, pass) values ("+str(idd)+", '"+str(mail)+"', '"+ str(password) + "');")
+        query = ("insert into users (rowid, email, pass) values ("+str(idd)+", '"+str(mail)+"', '"+ str(password) + "')")
         print (query)
         cursor.execute(query)
-        cursor.execute("select * from users;")
+        conn.close()
         s.do_HEAD()
 
 if __name__ == "__main__":
