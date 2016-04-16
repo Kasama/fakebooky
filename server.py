@@ -4,6 +4,7 @@ import BaseHTTPServer
 import sys
 import cgi
 import psycopg2
+import urlparse
 import sqlite3
 import os
 from cgi import parse_header, parse_multipart
