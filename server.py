@@ -88,9 +88,9 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             idd = row[0]
             idd = idd + 1
         print (idd)
-        query = ("insert into users (rowid, email, pass) values ("+str(idd)+", '"+str(mail)+"', '"+ str(password) + "')")
+        query = ("insert into users (rowid, email, pass) values (?,?,?)")
         print (query)
-        print(cursor.execute(query))
+        print(cursor.execute(query, (str(idd), str(mail), str(password))))
         conn.commit()
         conn.close()
         s.do_HEAD()
