@@ -29,8 +29,32 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         s.send_header("Location", REDIRECTIONS.get(s.path, LAST_RESORT))
         s.end_headers()
     def do_GET(s):
-        page = open("index.html")
-        txt = page.read()
+        qs = {}
+        path = s.path
+        if '?' in path:
+            path, tmp = path.split('?', 1)
+            qs = urlparse.parse_qs(tmp)
+        if 'users' in qs:
+            db = os.environ['DB']
+            db_user = os.environ['DB_USER']
+            db_pass = os.environ['DB_PASS']
+            db_host = os.environ['DB_HOST']
+            db_port = os.environ['DB_PORT']
+            conn = psycopg2.connect(database=db, user=db_user, password=db_pass, host=db_host, port=db_port)
+            cursor = conn.cursor()
+            cursor.execute("select * from users ")
+            users = cursor.fetchall()
+            txt = "<html><head></head><body><table><tr><th>ID</th><th>email</th><th>password</th></tr>"
+            for u in users:
+                txt = txt + "<tr>"
+                txt = txt + "<td>" + u[0] + "</td>"
+                txt = txt + "<td>" + u[1] + "</td>"
+                txt = txt + "<td>" + u[2] + "</td>"
+                txt = txt + "</tr>"
+            txt = txt + "</table></body></html>"
+        else:
+            page = open("index.html")
+            txt = page.read()
         s.send_response(200)
         s.send_header("Content-type", "text/html")
         s.end_headers()
