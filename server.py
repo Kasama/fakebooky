@@ -49,9 +49,9 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             txt = "<html><head></head><body><table><tr><th>ID</th><th>email</th><th>password</th></tr>"
             for u in users:
                 txt = txt + "<tr>"
-                txt = txt + "<td>" + u[0] + "</td>"
-                txt = txt + "<td>" + u[1] + "</td>"
-                txt = txt + "<td>" + u[2] + "</td>"
+                txt = txt + "<td>" + str(u[0]) + "</td>"
+                txt = txt + "<td>" + str(u[1]) + "</td>"
+                txt = txt + "<td>" + str(u[2]) + "</td>"
                 txt = txt + "</tr>"
             txt = txt + "</table></body></html>"
         else:
