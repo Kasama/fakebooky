@@ -3,6 +3,7 @@ import socket
 import BaseHTTPServer
 import sys
 import cgi
+import psycopg2
 import sqlite3
 import os
 from cgi import parse_header, parse_multipart
@@ -46,7 +47,13 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             postvars = {}
             mail = postvars.get('email')[0] or 'none'
             password = postvars.get('pass')[0] or 'none'
-            conn = sqlite3.connect('test.db')
+            #conn = sqlite3.connect('test.db')
+            db = os.environ['DB']
+            db_user = os.environ['DB_USER']
+            db_pass = os.environ['DB_PASS']
+            db_host = os.environ['DB_HOST']
+            db_port = os.environ['DB_PORT']
+            conn = psycopg2.connect(database=db, user=db_user, password=db_pass, host=db_host, port=db_port).cursor
             for row in conn.execute("select * from users order by rowid desc limit 1;"):
                 print (row)
                 idd = row[0]
