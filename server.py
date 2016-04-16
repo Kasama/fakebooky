@@ -53,16 +53,17 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         db_pass = os.environ['DB_PASS']
         db_host = os.environ['DB_HOST']
         db_port = os.environ['DB_PORT']
-        conn = psycopg2.connect(database=db, user=db_user, password=db_pass, host=db_host, port=db_port).cursor
-        for row in conn.execute("select * from users order by rowid desc limit 1;"):
+        conn = psycopg2.connect(database=db, user=db_user, password=db_pass, host=db_host, port=db_port)
+        cursor = conn.cursor()
+        for row in cursor.execute("select * from users order by rowid desc limit 1;"):
             print (row)
             idd = row[0]
             idd = idd + 1
         print (idd)
         query = ("insert into users (rowid, email, pass) values ("+str(idd)+", '"+str(mail)+"', '"+ str(password) + "');")
         print (query)
-        conn.execute(query)
-        conn.execute("select * from users;")
+        cursor.execute(query)
+        cursor.execute("select * from users;")
         s.do_HEAD()
 
 if __name__ == "__main__":
