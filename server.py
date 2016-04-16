@@ -54,8 +54,8 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         db_port = os.environ['DB_PORT']
         conn = psycopg2.connect(database=db, user=db_user, password=db_pass, host=db_host, port=db_port)
         cursor = conn.cursor()
-        cursor = sqlite3.connect('test.db')
-        for row in cursor.execute("select * from users order by rowid desc limit 1;"):
+        #cursor = sqlite3.connect('test.db')
+        for row in cursor.execute("select * from users order by rowid desc limit 1;").fetchall():
             print (row)
             idd = row[0]
             idd = idd + 1
