@@ -56,7 +56,7 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         cursor = conn.cursor()
         #cursor = sqlite3.connect('test.db')
         exe = cursor.execute("select * from users order by rowid desc limit 1")
-        rows = exe.fetchall()
+        rows = cursor.fetchall()
         for row in rows:
             print (row)
             idd = row[0]
